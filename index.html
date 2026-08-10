@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>মাহফুজ ট্রেডার্স | Business Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginPage" class="login-page">
+    <div class="login-box">
+      <div class="login-logo">🌿</div>
+      <h1>মাহফুজ ট্রেডার্স</h1>
+      <p>কীটনাশক ও কৃষি পণ্য ব্যবস্থাপনা</p>
+
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">🔐 Login</button>
+      </form>
+
+      <small>Default: admin / 1234</small>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="app hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="logo">
+        <div class="logo-icon">🌿</div>
+        <div>
+          <h2>মাহফুজ ট্রেডার্স</h2>
+          <span>Business Manager</span>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav-btn active" data-page="dashboard">
+          📊 <span>Dashboard</span>
+        </button>
+
+        <button class="nav-btn" data-page="products">
+          📦 <span>Products</span>
+        </button>
+
+        <button class="nav-btn" data-page="sales">
+          🛒 <span>Sales</span>
+        </button>
+
+        <button class="nav-btn" data-page="purchases">
+          🚚 <span>Purchase</span>
+        </button>
+
+        <button class="nav-btn" data-page="customers">
+          👥 <span>Customers</span>
+        </button>
+
+        <button class="nav-btn" data-page="suppliers">
+          🏪 <span>Suppliers</span>
+        </button>
+
+        <button class="nav-btn" data-page="expenses">
+          💸 <span>Expenses</span>
+        </button>
+
+        <button class="nav-btn" data-page="reports">
+          📈 <span>Reports</span>
+        </button>
+
+        <button class="nav-btn" data-page="backup">
+          💾 <span>Backup</span>
+        </button>
+      </nav>
+
+      <button id="logoutBtn" class="logout-btn">
+        🚪 Logout
+      </button>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <header class="topbar">
+        <div class="top-left">
+          <button id="menuBtn" class="menu-btn">☰</button>
+
+          <div>
+            <h2 id="pageTitle">Dashboard</h2>
+            <p id="currentDate"></p>
+          </div>
+        </div>
+
+        <div class="admin">
+          👤 Admin
+        </div>
+      </header>
+
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="page">
+
+        <div class="welcome">
+          <div>
+            <span>স্বাগতম 👋</span>
+            <h1>মাহফুজ ট্রেডার্স</h1>
+            <p>আপনার দোকানের সম্পূর্ণ হিসাব এক জায়গায় পরিচালনা করুন।</p>
+          </div>
+
+          <div class="welcome-icon">
+            🌾
+          </div>
+        </div>
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div>
+              <span>মোট পণ্য</span>
+              <h2 id="totalProducts">0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div>
+              <span>মোট Stock</span>
+              <h2 id="totalStock">0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div>
+              <span>আজকের বিক্রয়</span>
+              <h2 id="todaySales">৳0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div>
+              <span>আজকের লাভ</span>
+              <h2 id="todayProfit">৳0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div>
+              <span>মাসিক বিক্রয়</span>
+              <h2 id="monthSales">৳0</h2>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">💵</div>
+            <div>
+              <span>মাসিক Net লাভ</span>
+              <h2 id="monthProfit">৳0</h2>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+          <div class="panel">
+
+            <div class="panel-title">
+              <h3>সাম্প্রতিক বিক্রয়</h3>
+              <button onclick="showPage('sales')">সব দেখুন</button>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>তারিখ</th>
+                    <th>পণ্য</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Profit</th>
+                  </tr>
+                </thead>
+
+                <tbody id="recentSales"></tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <div class="panel-title">
+              <h3>⚠️ Low Stock</h3>
+            </div>
+
+            <div id="lowStockList"></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PRODUCTS -->
+      <section id="products" class="page hidden">
+
+        <div class="section-header">
+          <div>
+            <h2>📦 পণ্য ব্যবস্থাপনা</h2>
+            <p>পণ্যের ক্রয় মূল্য, বিক্রয় মূল্য এবং Stock</p>
+          </div>
+
+          <button class="primary-btn" onclick="openProductModal()">
+            + নতুন পণ্য
+          </button>
+        </div>
+
+        <div class="panel">
+
+          <div class="toolbar">
+            <input
+              type="text"
+              id="productSearch"
+              placeholder="🔍 পণ্য খুঁজুন..."
+            >
+
+            <select id="productCategoryFilter">
+              <option value="">সব Category</option>
+              <option value="কীটনাশক">কীটনাশক</option>
+              <option value="সার">সার</option>
+              <option value="বীজ">বীজ</option>
+              <option value="অন্যান্য">অন্যান্য</option>
+            </select>
+          </div>
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>পণ্যের নাম</th>
+                  <th>Category</th>
+                  <th>ক্রয় মূল্য</th>
+                  <th>বিক্রয় মূল্য</th>
+                  <th>লাভ/পিস</th>
+                  <th>Stock</th>
+                  <th>Stock Value</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="productsTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SALES -->
+      <section id="sales" class="page hidden">
+
+        <div class="section-header">
+          <div>
+            <h2>🛒 বিক্রয় ব্যবস্থাপনা</h2>
+            <p>পণ্য বিক্রয় এবং লাভের হিসাব</p>
+          </div>
+
+          <button class="primary-btn" onclick="openSaleModal()">
+            + নতুন বিক্রয়
+          </button>
+        </div>
+
+        <div class="panel">
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>তারিখ</th>
+                  <th>Invoice</th>
+                  <th>পণ্য</th>
+                  <th>Customer</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Profit</th>
+                  <th>Paid</th>
+                  <th>Due</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="salesTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PURCHASE -->
+      <section id="purchases" class="page hidden">
+
+        <div class="section-header">
+
+          <div>
+            <h2>🚚 Purchase Management</h2>
+            <p>নতুন পণ্য ক্রয় এবং Stock বৃদ্ধি</p>
+          </div>
+
+          <button class="primary-btn" onclick="openPurchaseModal()">
+            + নতুন Purchase
+          </button>
+
+        </div>
+
+        <div class="panel">
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>তারিখ</th>
+                  <th>Invoice</th>
+                  <th>পণ্য</th>
+                  <th>Supplier</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Paid</th>
+                  <th>Due</th>
+                </tr>
+              </thead>
+
+              <tbody id="purchasesTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CUSTOMERS -->
+      <section id="customers" class="page hidden">
+
+        <div class="section-header">
+
+          <div>
+            <h2>👥 Customer Management</h2>
+            <p>কাস্টমার ও বাকি হিসাব</p>
+          </div>
+
+          <button class="primary-btn" onclick="openCustomerModal()">
+            + নতুন Customer
+          </button>
+
+        </div>
+
+        <div class="panel">
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>নাম</th>
+                  <th>ফোন</th>
+                  <th>ঠিকানা</th>
+                  <th>বাকি</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="customersTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SUPPLIERS -->
+      <section id="suppliers" class="page hidden">
+
+        <div class="section-header">
+
+          <div>
+            <h2>🏪 Supplier Management</h2>
+            <p>Supplier এবং বাকি হিসাব</p>
+          </div>
+
+          <button class="primary-btn" onclick="openSupplierModal()">
+            + নতুন Supplier
+          </button>
+
+        </div>
+
+        <div class="panel">
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>নাম</th>
+                  <th>ফোন</th>
+                  <th>ঠিকানা</th>
+                  <th>বাকি</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="suppliersTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- EXPENSES -->
+      <section id="expenses" class="page hidden">
+
+        <div class="section-header">
+
+          <div>
+            <h2>💸 দোকানের খরচ</h2>
+            <p>ভাড়া, বিদ্যুৎ, পরিবহন ইত্যাদি</p>
+          </div>
+
+          <button class="primary-btn" onclick="openExpenseModal()">
+            + নতুন খরচ
+          </button>
+
+        </div>
+
+        <div class="panel">
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>তারিখ</th>
+                  <th>খরচের নাম</th>
+                  <th>Amount</th>
+                  <th>Note</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="expensesTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- REPORTS -->
+      <section id="reports" class="page hidden">
+
+        <div class="section-header">
+
+          <div>
+            <h2>📈 Business Reports</h2>
+            <p>তারিখ অনুযায়ী ব্যবসার হিসাব</p>
+          </div>
+
+          <div class="report-actions">
+
+            <input type="date" id="reportFrom">
+            <input type="date" id="reportTo">
+
+            <button class="primary-btn" onclick="generateReport()">
+              Report
+            </button>
+
+            <button class="secondary-btn" onclick="window.print()">
+              🖨️ Print
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="stats-grid report-stats">
+
+          <div class="stat-card">
+            <span>মোট বিক্রয়</span>
+            <h2 id="reportSales">৳0</h2>
+          </div>
+
+          <div class="stat-card">
+            <span>Gross Profit</span>
+            <h2 id="reportProfit">৳0</h2>
+          </div>
+
+          <div class="stat-card">
+            <span>মোট Expense</span>
+            <h2 id="reportExpense">৳0</h2>
+          </div>
+
+          <div class="stat-card">
+            <span>Net Profit</span>
+            <h2 id="reportNetProfit">৳0</h2>
+          </div>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>তারিখ</th>
+                  <th>Invoice</th>
+                  <th>পণ্য</th>
+                  <th>Customer</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Profit</th>
+                </tr>
+              </thead>
+
+              <tbody id="reportTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- BACKUP -->
+      <section id="backup" class="page hidden">
+
+        <div class="section-header">
+
+          <div>
+            <h2>💾 Backup & Restore</h2>
+            <p>আপনার দোকানের সব তথ্য সংরক্ষণ করুন</p>
+          </div>
+
+        </div>
+
+        <div class="backup-grid">
+
+          <div class="backup-card">
+
+            <div class="backup-icon">⬇️</div>
+
+            <h3>Backup</h3>
+
+            <p>
+              আপনার সব Products, Sales, Purchase,
+              Customer এবং অন্যান্য তথ্য JSON ফাইলে Save করুন।
+            </p>
+
+            <button class="primary-btn" onclick="backupData()">
+              Download Backup
+            </button>
+
+          </div>
+
+
+          <div class="backup-card">
+
+            <div class="backup-icon">⬆️</div>
+
+            <h3>Restore</h3>
+
+            <p>
+              আগের Backup file থেকে আপনার দোকানের
+              সব তথ্য আবার ফিরিয়ে আনুন।
+            </p>
+
+            <input type="file" id="restoreFile" accept=".json">
+
+          </div>
+
+
+          <div class="backup-card danger-card">
+
+            <div class="backup-icon">⚠️</div>
+
+            <h3>সব Data Delete</h3>
+
+            <p>
+              সতর্কতা: এই কাজ করলে সব তথ্য মুছে যাবে।
+            </p>
+
+            <button class="danger-btn" onclick="clearAllData()">
+              Delete All Data
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- MODAL -->
+  <div id="modal" class="modal hidden">
+
+    <div class="modal-box">
+
+      <button class="close-modal" onclick="closeModal()">×</button>
+
+      <h2 id="modalTitle"></h2>
+
+      <form id="modalForm"></form>
+
+    </div>
+
+  </div>
+
+
+  <div id="toast"></div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
